@@ -1,26 +1,11 @@
 {
-  "builds": [
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python"
-    }
-  ],
+  "buildCommand": "echo 'Build complete'",
+  "outputDirectory": "frontend",
+  "cleanUrls": true,
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "api/index.py"
-    },
-    {
-      "src": "/css/(.*)",
-      "dest": "frontend/css/$1"
-    },
-    {
-      "src": "/js/(.*)",
-      "dest": "frontend/js/$1"
-    },
-    {
-      "src": "/",
-      "dest": "frontend/index.html"
+      "dest": "/api/index.py"
     }
   ]
 }
