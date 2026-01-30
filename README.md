@@ -118,28 +118,6 @@ AI_TIMEOUT=30
 - `AI_MAX_TOKENS`: Limite de tokens na resposta (padrão: 500)
 - `AI_TIMEOUT`: Timeout em segundos (padrão: 30)
 
-## 📚 Estrutura do Projeto
-
-```
-.
-├── backend/
-│   ├── app/
-│   │   ├── api/           # Rotas da API
-│   │   ├── core/          # Configurações e prompts
-│   │   ├── models/        # Schemas Pydantic
-│   │   ├── services/      # Lógica de negócio
-│   │   └── utils/         # Utilitários
-│   ├── .env.example       # Exemplo de configuração
-│   └── requirements.txt   # Dependências Python
-├── frontend/
-│   ├── css/              # Estilos
-│   ├── js/               # Lógica do frontend
-│   └── index.html        # Interface principal
-├── tests/                # Testes e emails de exemplo
-├── docs/                 # Documentação adicional
-└── README.md
-```
-
 ## 🎮 Como Usar (Localmente)
 
 ### Via Interface Web
@@ -190,6 +168,7 @@ sucesso e realizações para nossa equipe."
 → IMPRODUTIVO (98% confiança)
 Justificativa: Mensagem de felicitação sazonal sem necessidade de ação
 ```
+### Possui mais testes inclusos nos arquivos.
 
 ## 🧪 Testes
 
@@ -227,7 +206,7 @@ Acesse `http://localhost:8000/docs` para ver a documentação interativa (Swagge
 ### Feito em Vercel
 
 Para usar a aplicação online, sem necessidade de instalação local, acesse:
-(incluir link)
+[Email Classifier](https://case-tecnico-auto-u-email-classifie.vercel.app).
 
 ## 📄 Licença
 
