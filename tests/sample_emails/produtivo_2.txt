@@ -1,0 +1,20 @@
+Assunto: Dúvida sobre funcionalidade do sistema
+
+Olá,
+
+Estou tentando gerar o relatório de transações do último trimestre através do sistema, mas toda vez que clico em "Exportar", recebo uma mensagem de erro: "Timeout - operação não concluída".
+
+Já tentei:
+- Limpar cache do navegador
+- Usar outro navegador (Chrome e Firefox)
+- Reduzir o período do relatório
+
+Nada funcionou. Vocês podem me ajudar? Preciso enviar esse relatório para a diretoria até amanhã.
+
+Existe alguma limitação que eu não esteja ciente? Ou é um problema técnico do sistema?
+
+Agradeço desde já pela atenção.
+
+Maria Santos
+Analista Financeira
+maria.santos@empresa.com

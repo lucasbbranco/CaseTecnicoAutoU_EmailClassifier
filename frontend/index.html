@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de classificação automática de emails usando IA">
+    <title>Email Classifier - Classificação Automática de Emails</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>📧</text></svg>">
+</head>
+<body>
+    <!-- Container Principal -->
+    <div class="container">
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>📩 Email Classifier</h1>
+            </div>
+            <p class="subtitle">Classificação Inteligente de Emails com IA</p>
+        </header>
+
+        <!-- Card Principal -->
+        <main class="main-card">
+            
+            <!-- Área de Upload -->
+            <section class="upload-section">
+                <h2>Enviar Email para Classificação</h2>
+                
+                <!-- Tabs: Arquivo ou Texto -->
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="file">
+                        Upload de Arquivo
+                    </button>
+                    <button class="tab-btn" data-tab="text">
+                        Colar Texto
+                    </button>
+                </div>
+
+                <!-- Tab: Upload de Arquivo -->
+                <div class="tab-content active" id="file-tab">
+                    <div class="dropzone" id="dropzone">
+                        <input type="file" id="file-input" accept=".txt,.pdf" hidden>
+                        <div class="dropzone-content">
+                            <p class="dropzone-text">
+                                Arraste um arquivo aqui ou <span class="link">clique para selecionar</span>
+                            </p>
+                            <p class="dropzone-hint">
+                                Formatos aceitos: .txt, .pdf (máx. 5MB)
+                            </p>
+                        </div>
+                        <div class="file-preview" id="file-preview" style="display: none;">
+                            <span class="file-name" id="file-name"></span>
+                            <button class="remove-btn" id="remove-file">×</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Colar Texto -->
+                <div class="tab-content" id="text-tab">
+                    <textarea 
+                        id="email-text" 
+                        class="email-textarea" 
+                        placeholder="Cole aqui o texto do email que deseja classificar...
+
+Exemplo:
+Prezados,
+
+Gostaria de solicitar o status da minha requisição #12345 que foi aberta na semana passada. Ainda não recebi nenhum retorno e o prazo está próximo do vencimento.
+
+Aguardo retorno.
+
+Atenciosamente,
+João Silva"
+                        rows="10"
+                    ></textarea>
+                    <div class="char-count">
+                        <span id="char-count">0</span> / 10.000 caracteres
+                    </div>
+                </div>
+
+                <!-- Botão de Classificar -->
+                <button class="classify-btn" id="classify-btn">
+                    <span class="btn-text">Classificar Email</span>
+                </button>
+            </section>
+
+            <!-- Área de Resultados -->
+            <section class="results-section" id="results-section" style="display: none;">
+                <h2>Resultado da Classificação</h2>
+                
+                <!-- Card de Resultado -->
+                <div class="result-card">
+                    
+                    <!-- Classificação -->
+                    <div class="result-item">
+                        <label>Categoria:</label>
+                        <div class="category-badge" id="category-badge">
+                            <span class="badge-text" id="badge-text">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Confiança -->
+                    <div class="result-item">
+                        <label>Confiança:</label>
+                        <div class="confidence-container">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="confidence-fill"></div>
+                            </div>
+                            <span class="confidence-value" id="confidence-value">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Justificativa -->
+                    <div class="result-item">
+                        <label>Justificativa:</label>
+                        <p class="justification-text" id="justification-text">-</p>
+                    </div>
+
+                    <!-- Resposta Sugerida -->
+                    <div class="result-item response-item">
+                        <label>Resposta Automática Sugerida:</label>
+                        <div class="response-box" id="response-box">
+                            <p id="response-text">-</p>
+                            <button class="copy-btn" id="copy-btn">
+                                Copiar Resposta
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tempo de Processamento -->
+                    <div class="result-footer">
+                        <span class="processing-time">
+                            Processado em <strong id="processing-time">-</strong>ms
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Botão para Nova Classificação -->
+                <button class="new-classification-btn" id="new-classification-btn">
+                    Nova Classificação
+                </button>
+            </section>
+
+            <!-- Loading State -->
+            <div class="loading-overlay" id="loading-overlay" style="display: none;">
+                <div class="spinner"></div>
+                <p class="loading-text">Classificando email...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="error-message" style="display: none;">
+                <p class="error-text" id="error-text"></p>
+                <button class="close-error-btn" id="close-error-btn">×</button>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                Desenvolvido com <strong>FastAPI</strong> e <strong>Groq AI</strong> para o case técnico da <strong>AutoU</strong>.
+            </p>
+            <p class="footer-note">
+                Desenvolvido por <a href="https://github.com/lucasbbranco" target="_blank" rel="noopener noreferrer"><strong>Lucas Branco</strong></a> | 
+                Seus dados não são armazenados!
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
