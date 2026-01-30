@@ -13,19 +13,7 @@ from typing import List
 # Configurar logger
 logger = logging.getLogger(__name__)
 
-# Download de recursos do NLTK (executar uma vez)
-try:
-    nltk.data.find('tokenizers/punkt')
-    nltk.data.find('corpora/stopwords')
-    nltk.data.find('tokenizers/punkt_tab')
-except LookupError:
-    logger.info("Baixando recursos do NLTK...")
-    nltk.download('punkt', quiet=True)
-    nltk.download('stopwords', quiet=True)
-    nltk.download('punkt_tab', quiet=True)
-    nltk.download('rslp', quiet=True)
-    logger.info("Recursos do NLTK baixados")
-
+# Não baixar aqui - já foi baixado no api/index.py
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import RSLPStemmer
