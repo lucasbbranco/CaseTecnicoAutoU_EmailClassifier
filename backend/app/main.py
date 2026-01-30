@@ -44,10 +44,19 @@ app.include_router(router, prefix="/api")
 
 # Servir arquivos estáticos do frontend
 frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "frontend")
+
+# Montar diretórios estáticos apenas se existirem
 if os.path.exists(frontend_path):
-    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_path, "assets")), name="assets")
-    app.mount("/css", StaticFiles(directory=os.path.join(frontend_path, "css")), name="css")
-    app.mount("/js", StaticFiles(directory=os.path.join(frontend_path, "js")), name="js")
+    assets_path = os.path.join(frontend_path, "assets")
+    css_path = os.path.join(frontend_path, "css")
+    js_path = os.path.join(frontend_path, "js")
+    
+    if os.path.exists(assets_path):
+        app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
+    if os.path.exists(css_path):
+        app.mount("/css", StaticFiles(directory=css_path), name="css")
+    if os.path.exists(js_path):
+        app.mount("/js", StaticFiles(directory=js_path), name="js")
 
 # Rota raiz - servir o HTML do frontend
 @app.get("/")
