@@ -6,8 +6,10 @@ Aplicação principal que gerencia rotas, CORS e inicialização do servidor.
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 import logging
+import os
 
 # Importar rotas
 from backend.app.api.routes import router
@@ -40,17 +42,37 @@ app.add_middleware(
 # Incluir rotas da API
 app.include_router(router, prefix="/api")
 
-# Rota raiz (health check)
+# Servir arquivos estáticos do frontend
+frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "frontend")
+if os.path.exists(frontend_path):
+    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_path, "assets")), name="assets")
+    app.mount("/css", StaticFiles(directory=os.path.join(frontend_path, "css")), name="css")
+    app.mount("/js", StaticFiles(directory=os.path.join(frontend_path, "js")), name="js")
+
+# Rota raiz - servir o HTML do frontend
 @app.get("/")
 async def root():
     """
-    Endpoint raiz - Health check da API
+    Endpoint raiz - Retorna o arquivo HTML do frontend
     """
-    return {
-        "status": "online",
-        "message": "Email Classifier API está funcionando!",
-        "docs": "/api/docs"
-    }
+    html_file = os.path.join(frontend_path, "index.html") if os.path.exists(frontend_path) else None
+    
+    if html_file and os.path.exists(html_file):
+        return FileResponse(html_file, media_type="text/html")
+    else:
+        # Fallback se o arquivo não existir
+        return HTMLResponse("""
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Email Classifier</title>
+            </head>
+            <body>
+                <h1>Email Classifier API</h1>
+                <p>Frontend não configurado. Acesse <a href="/api/docs">/api/docs</a> para a documentação da API.</p>
+            </body>
+        </html>
+        """)
 
 # Handler global de erros
 @app.exception_handler(Exception)
