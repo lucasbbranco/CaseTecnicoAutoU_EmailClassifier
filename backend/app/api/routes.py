@@ -10,9 +10,9 @@ import logging
 import time
 
 # Importar serviços e models
-from app.services.classifier import EmailClassifier
-from app.services.file_processor import FileProcessor
-from app.models.schemas import EmailTextRequest, ClassificationResponse
+from backend.app.services.classifier import EmailClassifier
+from backend.app.services.file_processor import FileProcessor
+from backend.app.models.schemas import EmailTextRequest, ClassificationResponse
 
 # Configurar logger
 logger = logging.getLogger(__name__)

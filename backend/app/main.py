@@ -10,7 +10,7 @@ from fastapi.responses import JSONResponse
 import logging
 
 # Importar rotas
-from app.api.routes import router
+from backend.app.api.routes import router
 
 # Configuração de logging
 logging.basicConfig(

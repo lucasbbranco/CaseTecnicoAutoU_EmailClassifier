@@ -13,14 +13,14 @@ import time
 from datetime import datetime
 
 # Importar configurações e utilitários
-from app.core.config import settings
-from app.core.prompts import (
+from backend.app.core.config import settings
+from backend.app.core.prompts import (
     get_classification_prompt,
     get_response_generation_prompt,
     CLASSIFICATION_SYSTEM_PROMPT,
     RESPONSE_SYSTEM_PROMPT
 )
-from app.utils.text_cleaner import TextCleaner
+from backend.app.utils.text_cleaner import TextCleaner
 
 # Configurar logger
 logger = logging.getLogger(__name__)

@@ -11,7 +11,7 @@ import logging
 from typing import Optional
 
 # Importar configurações
-from app.core.config import settings
+from backend.app.core.config import settings
 
 # Configurar logger
 logger = logging.getLogger(__name__)

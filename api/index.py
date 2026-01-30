@@ -1,19 +1,12 @@
 import sys
-import os
+from pathlib import Path
 
-# Adiciona o diretório raiz ao Python path
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+# Adiciona o diretório raiz ao path
+root_dir = Path(__file__).parent.parent
+sys.path.insert(0, str(root_dir))
 
-# Baixa dados do NLTK (necessário no primeiro run)
-try:
-    import nltk
-    nltk.download('punkt', quiet=True)
-    nltk.download('stopwords', quiet=True)
-    nltk.download('rslp', quiet=True)
-    nltk.download('punkt_tab', quiet=True)
-except:
-    pass
-
+# Importa a app
 from backend.app.main import app
 
-__all__ = ["app"]
+# Vercel precisa de 'app' ou 'handler'
+handler = app
