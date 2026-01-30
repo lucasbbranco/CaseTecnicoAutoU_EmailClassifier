@@ -1,10 +1,12 @@
 {
-  "outputDirectory": "frontend",
-  "installCommand": "pip install --upgrade pip && pip install -r requirements.txt",
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "/api/index.py"
+    },
+    {
+      "src": "/",
+      "dest": "/frontend/index.html"
     },
     {
       "src": "/(.*)",
