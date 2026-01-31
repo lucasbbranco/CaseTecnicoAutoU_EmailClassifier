@@ -229,7 +229,18 @@ async function handleClassification() {
         
     } catch (error) {
         console.error('Erro na classificação:', error);
-        showError(error.message || 'Erro ao classificar email. Tente novamente.');
+        // Extrair mensagem de erro de forma segura
+        let errorMessage = 'Erro ao classificar email. Tente novamente.';
+        
+        if (typeof error === 'string') {
+            errorMessage = error;
+        } else if (error && error.message) {
+            errorMessage = error.message;
+        } else if (error && error.detail) {
+            errorMessage = error.detail;
+        }
+        
+        showError(errorMessage);
     } finally {
         state.isProcessing = false;
         hideLoading();

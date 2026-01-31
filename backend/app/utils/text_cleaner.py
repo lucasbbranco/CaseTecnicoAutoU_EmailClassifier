@@ -7,7 +7,6 @@ Inclui: remoção de stop words, stemming e tokenização.
 
 import re
 import logging
-import nltk
 from typing import List
 
 # Configurar logger

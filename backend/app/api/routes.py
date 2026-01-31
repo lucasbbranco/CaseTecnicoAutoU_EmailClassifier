@@ -4,8 +4,7 @@ API Routes
 Define todos os endpoints da API de classificação de emails.
 """
 
-from fastapi import APIRouter, UploadFile, File, HTTPException, Form
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, UploadFile, File, HTTPException
 import logging
 import time
 
@@ -61,6 +60,13 @@ async def classify_text(request: EmailTextRequest):
             raise HTTPException(
                 status_code=400,
                 detail="O texto do email não pode estar vazio"
+            )
+        
+        # Validar tamanho mínimo
+        if len(request.email_text.strip()) < 10:
+            raise HTTPException(
+                status_code=400,
+                detail="O texto deve ter pelo menos 10 caracteres"
             )
         
         # Classificar email

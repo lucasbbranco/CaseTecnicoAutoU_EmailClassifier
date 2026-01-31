@@ -148,16 +148,3 @@ class FileProcessor:
         except Exception as e:
             logger.error(f"Erro ao processar PDF: {str(e)}")
             raise ValueError(f"Erro ao processar PDF: {str(e)}")
-    
-    
-    def validate_file_type(self, filename: str) -> bool:
-        """
-        Valida se o tipo de arquivo é suportado.
-        
-        Args:
-            filename: Nome do arquivo
-            
-        Returns:
-            bool: True se válido
-        """
-        return filename.endswith(('.txt', '.pdf'))

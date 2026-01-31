@@ -40,14 +40,27 @@ class APIClient {
             });
 
             if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.detail || 'Erro ao classificar texto');
+                let errorMessage = 'Erro ao classificar texto';
+                try {
+                    const error = await response.json();
+                    // Extrair a mensagem de erro corretamente
+                    errorMessage = error.detail || error.message || errorMessage;
+                } catch (e) {
+                    // Se não conseguir parsear o JSON, usar mensagem padrão
+                    errorMessage = `Erro HTTP ${response.status}: ${response.statusText}`;
+                }
+                throw new Error(errorMessage);
             }
 
             return await response.json();
         } catch (error) {
             console.error('Erro ao classificar texto:', error);
-            throw error;
+            // Garantir que o erro tem uma mensagem de string
+            if (error.message) {
+                throw error;
+            } else {
+                throw new Error('Erro ao conectar com o servidor');
+            }
         }
     }
 
@@ -67,14 +80,27 @@ class APIClient {
             });
 
             if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.detail || 'Erro ao processar arquivo');
+                let errorMessage = 'Erro ao processar arquivo';
+                try {
+                    const error = await response.json();
+                    // Extrair a mensagem de erro corretamente
+                    errorMessage = error.detail || error.message || errorMessage;
+                } catch (e) {
+                    // Se não conseguir parsear o JSON, usar mensagem padrão
+                    errorMessage = `Erro HTTP ${response.status}: ${response.statusText}`;
+                }
+                throw new Error(errorMessage);
             }
 
             return await response.json();
         } catch (error) {
             console.error('Erro ao processar arquivo:', error);
-            throw error;
+            // Garantir que o erro tem uma mensagem de string
+            if (error.message) {
+                throw error;
+            } else {
+                throw new Error('Erro ao conectar com o servidor');
+            }
         }
     }
 
